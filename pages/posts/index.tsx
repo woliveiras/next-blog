@@ -10,17 +10,15 @@ type PostsList = {
 };
 
 export default function Posts({
-  totalCount,
   pageCount,
   currentPage,
-  perPage,
   posts,
 }) {
   const router = useRouter()
   const [isLoading, setLoading] = useState(false);
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
-  
+
   const paginationHandler = (page) => {
     const currentPath = router.pathname;
     const currentQuery = router.query;
@@ -86,13 +84,11 @@ export async function getServerSideProps({ query }) {
   const page = query.page || 1; //if page empty we request the first page
   const response = await fetch(`http://localhost:4000/api/posts/${page}`);
   const posts = await response.json();
-
+  
   return {
     props: {
-      totalCount: posts.totalCount,
       pageCount: posts.pageCount,
       currentPage: posts.currentPage,
-      perPage: posts.perPage,
       posts: posts.posts,
     },
   };
