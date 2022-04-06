@@ -16,7 +16,7 @@ export default function Layout({ children }) {
 
       <footer className='bg-fuchsia-100 mt-8 py-4'>
         <div className='container mx-auto flex justify-center'>
-          &copy; 2022 DailyDevTips
+          Next.js MD
         </div>
       </footer>
     </div>
