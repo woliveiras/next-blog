@@ -1,6 +1,6 @@
-import fs from "fs";
-import matter from "gray-matter";
 import Link from "next/link";
+
+import { listAll } from 'lib/api/posts'
 
 type PostsList = {
     posts: string[]
@@ -23,17 +23,7 @@ export default function Posts({ posts }: PostsList) {
 }
 
 export async function getStaticProps() {
-  const localFiles = fs.readdirSync("./pages/posts");
-  const posts = localFiles.map((fileName) => {
-    const slug = fileName.replace(".md", "");
-    const readFile = fs.readFileSync(`./pages/posts/${fileName}`, "utf-8");
-    const { data: frontmatter } = matter(readFile);
-
-    return {
-      slug,
-      frontmatter,
-    };
-  });
+  const posts = await listAll()
 
   return {
     props: {
