@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { config } from 'infra/config'
 
 export default function Layout({ children }) {
   return (
@@ -6,15 +7,14 @@ export default function Layout({ children }) {
       <header>
         <div>
           <Link href='/'>
-            <a>🏡</a>
+            <a>{config.BLOG_TITLE}</a>
           </Link>
-          <span>Welcome to my blog</span>{' '}
         </div>
       </header>
       <main>{children}</main>
       <footer>
         <div>
-          Next.js MD
+          Blog desenvolvido com <a href="https://nextjs.org/" target='_blank' rel='noreferrer'>Next.js</a>
         </div>
       </footer>
     </div>
