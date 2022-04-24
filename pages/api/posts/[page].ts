@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { listAll } from "lib/api/posts";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function (req, res) {
+export default function (req: NextApiRequest, res: NextApiResponse) {
     const { page } = req.query
     const allPostsData = listAll()
     const sortedPosts = allPostsData.sort((a, b) =>

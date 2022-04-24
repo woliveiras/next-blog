@@ -1,19 +1,27 @@
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
-import ReactPaginate from "react-paginate";
+import { GetServerSideProps } from 'next'
+
 import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import dayjs from "dayjs";
 
-import { listAll } from "lib/api/posts";
-
-type PostsList = {
+type PostsProps = {
+  pageCount: number,
+  currentPage: number,
   posts: string[];
 };
+
+type PostType = {
+  slug: string,
+  frontmatter: Record<string, unknown>
+}
 
 export default function Posts({
   pageCount,
   currentPage,
   posts,
-}) {
+}: PostsProps) {
   const router = useRouter()
   const [isLoading, setLoading] = useState(false);
   const startLoading = () => setLoading(true);
@@ -42,18 +50,19 @@ export default function Posts({
 
   let content;
   if (isLoading) {
-    content = <span className="visually-hidden">Loading...</span>;
+    content = <span>Loading...</span>;
   } else {
     content = (
       <>
         {posts.map(({ slug, frontmatter }, index) => (
-          <div key={index}>
+          <article key={index}>
+            <h2>{frontmatter.title}</h2>
+            <p>{frontmatter.description}</p>
+            <span>{dayjs(frontmatter.date).format('DD/MM/YY')}</span>
             <Link href={`/posts/${slug}`}>
-              <a>
-                <h2 className="p-4">{frontmatter.title}</h2>
-              </a>
+              <a>Ler o texto "{frontmatter.title.toLowerCase()}"</a>
             </Link>
-          </div>
+          </article>
         ))}
       </>
     );
@@ -69,7 +78,6 @@ export default function Posts({
         breakClassName={"break-me"}
         activeClassName={"active"}
         containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
         initialPage={currentPage - 1}
         pageCount={pageCount}
         marginPagesDisplayed={2}
@@ -80,8 +88,8 @@ export default function Posts({
   );
 }
 
-export async function getServerSideProps({ query }) {
-  const page = query.page || 1; //if page empty we request the first page
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const page = query.page || 1;
   const response = await fetch(`http://localhost:4000/api/posts/${page}`);
   const posts = await response.json();
   
