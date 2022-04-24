@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     <>
       <Link href={`/posts/`}>
         <a>
-          <h2 className="p-4">Artigos</h2>
+          <h2>Artigos</h2>
         </a>
       </Link>
     </>
