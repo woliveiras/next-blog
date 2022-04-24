@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 import { GetServerSideProps } from 'next'
@@ -27,7 +28,7 @@ export default function Posts({
   const startLoading = () => setLoading(true);
   const stopLoading = () => setLoading(false);
 
-  const paginationHandler = (page) => {
+  const paginationHandler = (page: any) => {
     const currentPath = router.pathname;
     const currentQuery = router.query;
     currentQuery.page = page.selected + 1;
@@ -54,7 +55,7 @@ export default function Posts({
   } else {
     content = (
       <>
-        {posts.map(({ slug, frontmatter }, index) => (
+        {posts.map(({ slug, frontmatter }: any, index) => (
           <article key={index}>
             <h2>{frontmatter.title}</h2>
             <p>{frontmatter.description}</p>

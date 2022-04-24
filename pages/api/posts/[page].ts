@@ -13,7 +13,7 @@ export default function (req: NextApiRequest, res: NextApiResponse) {
     const perPage = 5
     const totalPosts = sortedPosts.length
     const totalPages = totalPosts / perPage
-    const start = (page - 1) * perPage
+    const start = (Number(page) - 1) * perPage
     let end = start + perPage
 
     if (end > totalPosts) {

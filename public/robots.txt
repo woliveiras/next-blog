@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://woliveiras.com.br
+
+# Sitemaps
+Sitemap: https://woliveiras.com.br/sitemap.xml
