@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 4000",
-    "build": "next build",
-    "postbuild": "npx -y next-sitemap",
-    "start": "next start",
+    "start": "next dev -p 4000",
+    "build": "next build && next export -o build",
     "lint": "next lint"
   },
   "dependencies": {
