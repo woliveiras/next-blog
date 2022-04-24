@@ -47,7 +47,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const postsDir = `.${config.CONTENT_PATH}/posts/${slug}.md`;
   const file = fs.readFileSync(postsDir);
   const { data: frontmatter, content } = matter(file);
-  console.log({ frontmatter, content });
 
   return {
     props: {
